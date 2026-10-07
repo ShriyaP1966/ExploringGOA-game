@@ -1,0 +1,65 @@
+/* Design tokens for ExploringGOA. Every colour, font and size used in the UI comes from here. */
+:root {
+  /* Summer palette */
+  --ocean: #0b6e8a;
+  --ocean-deep: #08516a;
+  --ocean-soft: #d6eef4;
+  --sky: #8fd3f4;
+  --sky-soft: #e9f7fd;
+  --sand: #f7e3bd;
+  --sand-soft: #fdf6e8;
+  --palm: #2f8f5b;
+  --palm-soft: #dcf1e4;
+  --sunset: #f28c28;
+  --sunset-soft: #fdebd6;
+  --coral: #f2665c;
+  --coral-soft: #fde2df;
+  --ocean-bright: #19a7c9;
+  --sunset-deep: #c4590f;
+  --gold: #ffc94d;
+  --gold-deep: #d99a1e;
+  --berry: #d9488f;
+
+  /* Gradients: ocean, sunset, sand */
+  --grad-ocean: linear-gradient(135deg, #0b6e8a 0%, #1597b8 55%, #3cc1d6 100%);
+  --grad-sunset: linear-gradient(135deg, #ffb347 0%, #f28c28 35%, #f2665c 75%, #d9488f 100%);
+  --grad-sand: linear-gradient(180deg, #fffaf1 0%, #fdf1dc 100%);
+  --grad-palm: linear-gradient(135deg, #3fa86b 0%, #2f8f5b 100%);
+  --glass: rgba(255, 251, 243, 0.86);
+  --glass-dark: rgba(16, 32, 52, 0.62);
+
+  /* Neutrals */
+  --ink: #1e2d33;
+  --ink-muted: #5b6b70;
+  --surface: #fffdf8;
+  --border: #efdcbc;
+
+  /* Typography */
+  --font-display: 'Fredoka', 'Trebuchet MS', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.6rem;
+
+  /* Shape and spacing */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 26px;
+  --radius-pill: 999px;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  /* Soft, warm, layered shadows */
+  --shadow-sm: 0 1px 2px rgba(80, 50, 20, 0.06), 0 2px 8px -2px rgba(80, 50, 20, 0.1);
+  --shadow-md: 0 2px 6px rgba(80, 50, 20, 0.06), 0 12px 30px -12px rgba(80, 50, 20, 0.3);
+  --shadow-lg: 0 4px 10px rgba(40, 30, 60, 0.08), 0 22px 44px -16px rgba(40, 30, 60, 0.42);
+  --glow-sunset: 0 6px 18px -4px rgba(242, 102, 92, 0.55);
+  --glow-ocean: 0 6px 18px -4px rgba(11, 110, 138, 0.5);
+  --focus-ring: 0 0 0 3px rgba(143, 211, 244, 0.9);
+}

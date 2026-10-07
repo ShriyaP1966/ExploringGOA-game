@@ -1,0 +1,510 @@
+/* World map: SVG coastline, pins and the location details panel. */
+.world-map {
+  position: relative;
+  height: 100%;
+  min-height: 300px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  /* Matches the sea so letterboxing around the SVG blends in. */
+  background: linear-gradient(135deg, var(--sky), #5fb3cf);
+}
+
+.goa-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Backdrop */
+.goa-map__wave {
+  fill: none;
+  stroke: white;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+
+.goa-map__sea-label {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-style: italic;
+  letter-spacing: 0.2em;
+  fill: white;
+  opacity: 0.8;
+  text-anchor: middle;
+}
+
+.goa-map__beach {
+  fill: none;
+  stroke: var(--sand);
+  stroke-width: 22;
+  stroke-linejoin: round;
+}
+
+.goa-map__region {
+  stroke: white;
+  stroke-width: 1.5;
+}
+
+.goa-map__region--north {
+  fill: #cfe9d6;
+}
+
+.goa-map__region--central {
+  fill: #f3e6c4;
+}
+
+.goa-map__region--south {
+  fill: #d8ecc4;
+}
+
+.goa-map__region-label {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  fill: var(--palm);
+  opacity: 0.45;
+  text-anchor: middle;
+}
+
+.goa-map__river {
+  fill: none;
+  stroke: var(--sky);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.goa-map__hill {
+  fill: var(--palm);
+  opacity: 0.35;
+}
+
+.goa-map__compass circle {
+  fill: var(--surface);
+  stroke: var(--ocean);
+  stroke-width: 2;
+}
+
+.goa-map__compass path {
+  fill: var(--coral);
+}
+
+.goa-map__compass text {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  fill: var(--ocean-deep);
+  text-anchor: middle;
+}
+
+/* Pins */
+.map-pin__body {
+  stroke: white;
+  stroke-width: 3;
+}
+
+.map-pin__emoji,
+.map-pin__glyph {
+  font-size: 18px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.map-pin__label-bg {
+  fill: var(--surface);
+  stroke: var(--border);
+}
+
+.map-pin__label {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  fill: var(--ink);
+  text-anchor: middle;
+}
+
+.map-pin--discovered .map-pin__body {
+  fill: var(--ocean);
+}
+
+.map-pin--current .map-pin__body {
+  fill: var(--sunset);
+}
+
+.map-pin--current,
+.map-pin--discovered {
+  cursor: pointer;
+}
+
+.map-pin--current:hover .map-pin__body,
+.map-pin--discovered:hover .map-pin__body {
+  filter: brightness(1.1);
+}
+
+.map-pin:focus {
+  outline: none;
+}
+
+.map-pin:focus-visible .map-pin__label-bg,
+.map-pin--selected .map-pin__label-bg {
+  stroke: var(--ocean);
+  stroke-width: 3;
+}
+
+.map-pin__pulse {
+  fill: var(--sunset);
+  opacity: 0.4;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pin-pulse 2s ease-out infinite;
+}
+
+@keyframes pin-pulse {
+  from {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* Fogged (undiscovered) pins */
+.map-pin__fog {
+  fill: white;
+  opacity: 0.75;
+  filter: blur(8px);
+}
+
+.map-pin--fogged .map-pin__body {
+  fill: #a9b4b8;
+  opacity: 0.85;
+}
+
+.map-pin--fogged .map-pin__glyph {
+  font-family: var(--font-display);
+  font-weight: 700;
+  fill: white;
+}
+
+.map-pin--fogged {
+  cursor: pointer;
+}
+
+.map-pin--fogged:hover .map-pin__body,
+.map-pin--fogged.map-pin--selected .map-pin__body {
+  fill: #8c999e;
+}
+
+.map-pin--fogged:focus-visible .map-pin__body,
+.map-pin--fogged.map-pin--selected .map-pin__body {
+  stroke: var(--ocean);
+}
+
+/* Discovered (not current) pins get a small check badge */
+.map-pin__check circle {
+  fill: var(--palm);
+  stroke: white;
+  stroke-width: 2;
+}
+
+.map-pin__check path {
+  fill: none;
+  stroke: white;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Legend in the corner of the map */
+.map-legend {
+  position: absolute;
+  left: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 1;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: rgba(255, 253, 248, 0.9);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.map-legend li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.map-legend__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.map-legend__dot--current {
+  background: var(--sunset);
+}
+
+.map-legend__dot--discovered {
+  background: var(--ocean);
+}
+
+.map-legend__dot--fogged {
+  background: #a9b4b8;
+}
+
+.map-legend__dot--hinted {
+  background: var(--sunset);
+  opacity: 0.6;
+}
+
+/* Ask a local, in the current location's panel */
+.ask-local {
+  padding: var(--space-2) var(--space-3);
+  background: var(--palm-soft);
+  border-radius: var(--radius-sm);
+}
+
+.ask-local__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.ask-local__label {
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+.ask-local__meta {
+  font-weight: 600;
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+/* Marked on the tourist map: a warmer fog */
+.map-pin--hinted .map-pin__fog {
+  fill: #ffe7a8;
+}
+
+.map-pin--hinted .map-pin__body {
+  fill: var(--sunset);
+  opacity: 0.8;
+}
+
+.location-details__hint {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--sunset-soft);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+/* Dashed line from where you are to the place you are looking at */
+.goa-map__route {
+  stroke: var(--sunset);
+  stroke-width: 4;
+  stroke-dasharray: 10 8;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-pin__pulse {
+    animation: none;
+  }
+}
+
+/* Location details panel, floating over the map */
+.location-details {
+  position: absolute;
+  top: var(--space-3);
+  bottom: var(--space-3);
+  width: min(340px, calc(100% - 2 * var(--space-3)));
+  overflow-y: auto;
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.location-details--right {
+  right: var(--space-3);
+}
+
+.location-details--left {
+  left: var(--space-3);
+}
+
+.location-details__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.location-details__header h3 {
+  font-size: var(--text-lg);
+  color: var(--ocean-deep);
+}
+
+.location-details__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.location-details__description {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.location-details__ratings {
+  display: grid;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.location-details__rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.location-details__dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sand);
+}
+
+.dot--on {
+  background: var(--sunset);
+}
+
+.location-details__subtitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  color: var(--ocean-deep);
+}
+
+.location-details__activities {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.activity {
+  padding: var(--space-2) var(--space-3);
+  background: var(--sand-soft);
+  border-radius: var(--radius-sm);
+}
+
+.activity__name {
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+.activity__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin-top: 2px;
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+/* Travel options inside the details panel */
+.travel-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--ocean-soft);
+  border-radius: var(--radius-sm);
+}
+
+.travel-options__distance {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.travel-options__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.travel-option {
+  padding: var(--space-2);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+}
+
+.travel-option__row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.travel-option__mode {
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+.travel-option__meta {
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.travel-option--blocked .travel-option__mode {
+  color: var(--ink-muted);
+}
+
+.travel-option__reason {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-xs);
+  color: #b23a31;
+}
+
+.activity__gain {
+  color: var(--palm);
+  font-weight: 700;
+}
+
+.activity__cost {
+  color: #b23a31;
+  font-weight: 700;
+}

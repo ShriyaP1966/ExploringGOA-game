@@ -1,0 +1,188 @@
+/* The final My Goa Summer screen. Sits in .day-overlay, above the voice panel. */
+
+.recap {
+  width: min(880px, 100%);
+  max-height: calc(100vh - var(--voice-panel-height, 0px) - 2 * var(--space-4));
+  overflow-y: auto;
+  padding: var(--space-6);
+  background: linear-gradient(180deg, #ffd9b0 0, var(--sunset-soft) 140px, var(--surface) 320px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.recap__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.recap__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  color: var(--ocean-deep);
+}
+
+.recap__ending {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+.recap__ending strong {
+  color: var(--ink);
+}
+
+/* Score */
+.recap__score {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(0, 1.4fr);
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 2px solid var(--sunset);
+  border-radius: var(--radius-md);
+}
+
+.recap__score-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.recap__score-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--sunset);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--text-sm);
+}
+
+.recap__score-value {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 9vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ocean-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.recap__rank {
+  padding: var(--space-1) var(--space-4);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-lg);
+  background: var(--sand);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.recap__rank--shown {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.recap__rank--explorer {
+  background: var(--ocean-soft);
+  color: var(--ocean-deep);
+}
+
+.recap__rank--local-legend {
+  background: var(--palm-soft);
+  color: var(--palm);
+}
+
+.recap__next {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.recap__breakdown {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.recap__breakdown li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-1) 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.recap__points {
+  font-weight: 700;
+  color: var(--palm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Stats, highlights */
+.recap__heading {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-display);
+  color: var(--ocean-deep);
+}
+
+.recap__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.recap__highlights {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  line-height: 1.5;
+}
+
+.recap__muted {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+/* Final message and button */
+.recap__final {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 4vw, 1.7rem);
+  font-weight: 600;
+  color: var(--sunset);
+}
+
+.recap__actions {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 720px) {
+  .recap {
+    padding: var(--space-4);
+  }
+
+  .recap__score {
+    grid-template-columns: 1fr;
+  }
+
+  .recap__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

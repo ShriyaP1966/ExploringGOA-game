@@ -1,0 +1,303 @@
+/* The voice panel: always visible at the bottom, always ready for dictation. */
+.voice-panel {
+  position: relative;
+  /* Above day screens and event popups, which stop short of it. */
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  backdrop-filter: blur(12px);
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);
+  /* A sunset-gradient ring around frosted glass. */
+  background:
+    linear-gradient(var(--glass), var(--glass)) padding-box,
+    var(--grad-sunset) border-box;
+  box-shadow: var(--shadow-lg);
+}
+
+.voice-panel__form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.voice-panel__mic {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--grad-sunset);
+  box-shadow: var(--glow-sunset), inset 0 2px 0 rgba(255, 255, 255, 0.35);
+  color: white;
+  font-size: 1.5rem;
+}
+
+.voice-panel__mic--listening {
+  box-shadow: 0 0 0 4px var(--sunset-soft);
+}
+
+.voice-panel__input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 2px 4px rgba(80, 50, 20, 0.08);
+  font: inherit;
+  font-size: var(--text-lg);
+  color: var(--ink);
+}
+
+.voice-panel__input:focus {
+  outline: none;
+  border-color: var(--sunset);
+  box-shadow: var(--focus-ring);
+}
+
+.voice-panel__hint {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+/* The three answer sections */
+.voice-results {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: var(--space-2);
+}
+
+.voice-section {
+  min-width: 0;
+  max-height: 9.5rem;
+  overflow-y: auto;
+  padding: var(--space-2) var(--space-3);
+  background: var(--sand-soft);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--text-sm);
+}
+
+.voice-section--said {
+  background: var(--ocean-soft);
+}
+
+.voice-section--understood {
+  background: var(--sunset-soft);
+}
+
+.voice-section--happened {
+  background: var(--palm-soft);
+}
+
+.voice-section__title {
+  margin: 0 0 var(--space-1);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ocean-deep);
+}
+
+.voice-section__quote {
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.voice-section__meta {
+  margin: 2px 0 0;
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.voice-fields {
+  margin: 0;
+  display: grid;
+  /* Two label/value pairs per row, so every field fits without scrolling. */
+  grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 1px var(--space-2);
+  font-size: var(--text-xs);
+}
+
+.voice-fields dt {
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+.voice-fields dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.voice-empty {
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.voice-section__result {
+  margin: 0 0 var(--space-1);
+  font-weight: 700;
+}
+
+.voice-changes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px var(--space-3);
+  font-size: var(--text-xs);
+}
+
+.voice-changes__unchanged {
+  color: var(--ink-muted);
+}
+
+.voice-changes__changed {
+  font-weight: 700;
+}
+
+/* History of recent commands */
+.voice-history {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  overflow-x: auto;
+  font-size: var(--text-xs);
+}
+
+.voice-history__label {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+.voice-history__item {
+  flex-shrink: 0;
+  max-width: 14rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 2px var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  font: inherit;
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.voice-history__item--selected {
+  border-color: var(--sunset);
+  background: var(--sunset-soft);
+  font-weight: 700;
+}
+
+/* Title screen: same panel at the bottom */
+.title-shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3) var(--space-4);
+  gap: var(--space-3);
+}
+
+.title-shell .title-screen {
+  flex: 1;
+  min-height: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Overlays stop short of the voice panel so it is always visible and usable. */
+.day-overlay {
+  bottom: var(--voice-panel-height, 0px);
+}
+
+/* Cards fit the space above the panel and scroll inside it when they are taller. */
+.day-overlay .day-card {
+  max-height: calc(100vh - var(--voice-panel-height, 0px) - 2 * var(--space-4));
+}
+
+/* The main button stays visible at the bottom of a scrolling card. */
+.day-overlay .day-card__actions {
+  position: sticky;
+  bottom: calc(-1 * var(--space-6));
+  margin: 0 calc(-1 * var(--space-6)) calc(-1 * var(--space-6));
+  padding: var(--space-3) var(--space-6) var(--space-6);
+  background: linear-gradient(to bottom, transparent, var(--surface) 30%);
+}
+
+@media (max-width: 860px) {
+  .voice-results {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.voice-fields__alt {
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+.voice-outcome {
+  display: inline-block;
+  margin-left: var(--space-1);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.voice-outcome--success {
+  background: var(--palm);
+  color: white;
+}
+
+.voice-outcome--refused {
+  background: var(--coral);
+  color: white;
+}
+
+.voice-outcome--answered {
+  background: var(--ocean);
+  color: white;
+}
+
+.voice-outcome--not-understood {
+  background: var(--sand);
+  color: var(--ink);
+}
+
+.voice-section__note {
+  margin: var(--space-1) 0 0;
+  padding: 2px var(--space-2);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: #a3540d;
+}
+
+.voice-section__note--first {
+  margin: 0 0 var(--space-1);
+}
+
+.voice-panel--error {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-color: var(--coral);
+}
+
+.voice-panel__error-text {
+  margin: 0;
+  font-weight: 700;
+}

@@ -1,0 +1,189 @@
+/* Location scenes: layered SVG lit by the time of day, with a caption card. */
+
+.scene-figure {
+  position: relative;
+  margin: 0;
+  height: 100%;
+  min-height: 170px;
+  display: flex;
+}
+
+.scene-figure > .scene {
+  flex: 1;
+}
+
+.scene {
+  position: relative;
+  margin: 0;
+  height: 100%;
+  min-height: 170px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), var(--shadow-md);
+  background: var(--ocean);
+  isolation: isolate;
+}
+
+.scene__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* A soft vignette that frames the illustration like a game screen. */
+.scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(20, 20, 40, 0.28) 100%);
+}
+
+.scene__caption {
+  position: absolute;
+  z-index: 1;
+  left: var(--space-3);
+  bottom: var(--space-3);
+  max-width: min(340px, calc(100% - 2 * var(--space-3)));
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--glass);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.scene__place {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--ocean-deep);
+}
+
+.scene__time {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sunset-deep);
+}
+
+.scene__description {
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  line-height: 1.35;
+}
+
+/* On the scene view, news floats over the top of the picture instead of pushing it down. */
+.main-stage__body--scene {
+  position: relative;
+}
+
+.main-stage__body--scene .main-stage__news {
+  position: absolute;
+  z-index: 2;
+  top: var(--space-3);
+  right: var(--space-3);
+  /* Top-right and narrow, so landmarks (forts, churches) stay in view. */
+  width: min(460px, 58%);
+  max-height: 55%;
+}
+
+.main-stage__body--scene .main-stage__news > * {
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Gentle life: drifting clouds, swaying palms, lapping waves, twinkling stars. */
+.scene-cloud {
+  animation: scene-drift 38s ease-in-out infinite alternate;
+}
+
+.scene-palm {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: scene-sway 6s ease-in-out infinite alternate;
+}
+
+.scene-wave {
+  animation: scene-lap 4.5s ease-in-out infinite alternate;
+}
+
+.scene-foam {
+  animation: scene-foam 5s ease-in-out infinite alternate;
+}
+
+.scene-star {
+  animation: scene-twinkle 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes scene-drift {
+  from {
+    transform: translateX(-30px);
+  }
+  to {
+    transform: translateX(40px);
+  }
+}
+
+@keyframes scene-sway {
+  from {
+    transform: rotate(-1.4deg);
+  }
+  to {
+    transform: rotate(1.6deg);
+  }
+}
+
+@keyframes scene-lap {
+  from {
+    transform: translateX(-8px);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateX(8px);
+    opacity: 1;
+  }
+}
+
+@keyframes scene-foam {
+  from {
+    transform: translateY(0);
+    opacity: 0.85;
+  }
+  to {
+    transform: translateY(4px);
+    opacity: 0.45;
+  }
+}
+
+@keyframes scene-twinkle {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-cloud,
+  .scene-palm,
+  .scene-wave,
+  .scene-foam,
+  .scene-star {
+    animation: none;
+  }
+}
+
+/* Short or narrow stages: just the place and the time. */
+@media (max-width: 560px), (max-height: 720px) {
+  .scene__description {
+    display: none;
+  }
+}

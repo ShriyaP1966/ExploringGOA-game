@@ -46,6 +46,20 @@ Behind its illustrated summer atmosphere is a rule-based natural-language parser
   <img src="https://img.shields.io/badge/External%20AI%20API-Not%20Required-2E8B57?style=flat-square" alt="No external AI API required for gameplay"/>
 </p>
 
+## 🎮 Play It Live
+
+<p align="center">
+  <a href="https://exploring-goa-game.vercel.app/">
+    <img src="https://img.shields.io/badge/PLAY%20NOW-Exploring%20Goa-00A896?style=for-the-badge&logo=vercel&logoColor=white" alt="Play Exploring Goa live"/>
+  </a>
+</p>
+
+<p align="center">
+  <strong><a href="https://exploring-goa-game.vercel.app/">🌴 Play Exploring Goa Now →</a></strong>
+  <br/>
+  Experience the adventure directly in your browser.
+</p>
+
 <p align="center">
   <strong>
     <a href="https://github.com/ShriyaP1966/ExploringGOA-game">Explore the Source Code</a>
